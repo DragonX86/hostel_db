@@ -248,5 +248,8 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+# SQLite
+*.db
+
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm
 
