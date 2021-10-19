@@ -31,11 +31,7 @@ class GroupModal(QMainWindow):
             self.ui.result_button.clicked.connect(self.add_group)
         elif window_type == OperationEnum.EDIT:
             self.ui.group_name.setText(group.group_name)
-
-            index = self.ui.comboBox.findText(group.faculty_name)
-
-            if index != -1:
-                self.ui.comboBox.setCurrentIndex(index)
+            self.ui.comboBox.setCurrentText(group.faculty_name)
 
             self.setWindowTitle("Редактирование записи")
             self.ui.result_button.setText("Сохранить изменения")
