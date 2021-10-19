@@ -1,7 +1,7 @@
-from PyQt5 import QtWidgets, uic
+from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
 
-from models.faculty_manager import FacultyManager
+from entities.faculty_entity import FacultyManager
 from forms.faculty_modal import FacultyModal
 from utils.operationEnum import OperationEnum
 
@@ -31,19 +31,15 @@ class FacultyWindow(QMainWindow):
             self.ui.faculty_modal = FacultyModal(window_type, None)
         elif sender_text == 'Редактировать запись':
             window_type = OperationEnum.EDIT
+
+            if self.current_guid is None:
+                return None
+
             faculty = FacultyManager.get_faculty_by_id(self.current_guid)
             self.ui.faculty_modal = FacultyModal(window_type, faculty)
 
         self.ui.faculty_modal.com.update.connect(self.update_table_data)
         self.ui.faculty_modal.show()
-
-    def get_current_guid(self, row):
-        self.current_guid = self.ui.tableWidget.item(row, 0).text()
-
-    def delete_record(self):
-        if self.current_guid is not None:
-            FacultyManager.delete_faculty_by_id(self.current_guid)
-            self.update_table_data()
 
     def configure_tableWidget(self):
         self.ui.tableWidget.setColumnHidden(0, True)
@@ -55,6 +51,14 @@ class FacultyWindow(QMainWindow):
 
         self.ui.tableWidget.cellClicked.connect(self.get_current_guid)
         self.update_table_data()
+
+    def get_current_guid(self, row):
+        self.current_guid = self.ui.tableWidget.item(row, 0).text()
+
+    def delete_record(self):
+        if self.current_guid is not None:
+            FacultyManager.delete_faculty_by_id(self.current_guid)
+            self.update_table_data()
 
     def update_table_data(self):
         self.ui.tableWidget.setRowCount(0)

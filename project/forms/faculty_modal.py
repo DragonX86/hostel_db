@@ -4,8 +4,8 @@ from typing import Optional
 
 from utils.operationEnum import OperationEnum
 
-from models.faculty_manager import FacultyManager
-from models.faculty_manager import Faculty
+from entities.faculty_entity import FacultyManager
+from entities.faculty_entity import Faculty
 
 
 class Communicate(QObject):
@@ -38,7 +38,7 @@ class FacultyModal(QtWidgets.QMainWindow):
         faculty_name = self.ui.faculty_name.text()
 
         if faculty_name and not faculty_name.isspace():
-            FacultyManager.add_faculty(faculty_name)
+            FacultyManager.add_new_faculty(faculty_name)
             self.com.update.emit()
 
         self.close()

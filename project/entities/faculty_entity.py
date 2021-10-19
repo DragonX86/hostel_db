@@ -1,5 +1,5 @@
-from typing import Optional
 from dataclasses import dataclass
+from typing import Optional
 
 from PyQt5.QtSql import QSqlQuery
 
@@ -34,17 +34,6 @@ class FacultyManager:
             )
 
     @staticmethod
-    def add_faculty(faculty_name: str):
-        DataBaseConnection()
-
-        query = QSqlQuery()
-
-        query.prepare("INSERT INTO faculty ('faculty_name') VALUES (:faculty_name)")
-        query.bindValue(":faculty_name", faculty_name)
-
-        query.exec()
-
-    @staticmethod
     def get_faculty_by_id(faculty_id: str) -> Faculty:
         DataBaseConnection()
 
@@ -66,14 +55,13 @@ class FacultyManager:
             )
 
     @staticmethod
-    def delete_faculty_by_id(faculty_id: str):
+    def add_new_faculty(faculty_name: str):
         DataBaseConnection()
 
         query = QSqlQuery()
 
-        query.prepare("DELETE FROM faculty WHERE faculty_id = :faculty_id")
-
-        query.bindValue(":faculty_id", faculty_id)
+        query.prepare("INSERT INTO faculty ('faculty_name') VALUES (:faculty_name)")
+        query.bindValue(":faculty_name", faculty_name)
 
         query.exec()
 
@@ -89,5 +77,17 @@ class FacultyManager:
 
         query.bindValue(":faculty_id", faculty.faculty_id)
         query.bindValue(":faculty_name", faculty.faculty_name)
+
+        query.exec()
+
+    @staticmethod
+    def delete_faculty_by_id(faculty_id: str):
+        DataBaseConnection()
+
+        query = QSqlQuery()
+
+        query.prepare("DELETE FROM faculty WHERE faculty_id = :faculty_id")
+
+        query.bindValue(":faculty_id", faculty_id)
 
         query.exec()

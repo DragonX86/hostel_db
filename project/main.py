@@ -1,9 +1,10 @@
 import sys
 
-from PyQt5 import QtWidgets, QtGui, QtCore, uic
+from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import QMainWindow
 
 from forms.faculty_window import FacultyWindow
+from forms.groups_window import GroupsWindow
 
 
 class MainWindow(QMainWindow):
@@ -13,7 +14,9 @@ class MainWindow(QMainWindow):
         self.ui = uic.loadUiType('main.ui')[0]()
         self.ui.setupUi(self)
 
+        self.ui.groups_button.clicked.connect(self.buttons_click_handler)
         self.ui.faculty_button.clicked.connect(self.buttons_click_handler)
+
         self.ui.exit_button.clicked.connect(sys.exit)
 
     def buttons_click_handler(self):
@@ -27,6 +30,9 @@ class MainWindow(QMainWindow):
             pass
         elif sender_text == 'Секции':
             pass
+        elif sender_text == 'Группы':
+            self.ui.groups_window = GroupsWindow()
+            self.ui.groups_window.show()
         elif sender_text == 'Корпусы':
             pass
         elif sender_text == 'Комменданты':
