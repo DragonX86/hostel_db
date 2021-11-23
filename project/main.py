@@ -8,6 +8,7 @@ from forms.faculty_window import FacultyWindow
 from forms.groups_window import GroupsWindow
 
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -18,7 +19,7 @@ class MainWindow(QMainWindow):
         self.ui.groups_button.clicked.connect(self.buttons_click_handler)
         self.ui.building_button.clicked.connect(self.buttons_click_handler)
         self.ui.faculty_button.clicked.connect(self.buttons_click_handler)
-
+    
         self.ui.exit_button.clicked.connect(sys.exit)
 
     def buttons_click_handler(self):
@@ -43,6 +44,9 @@ class MainWindow(QMainWindow):
         elif sender_text == 'Факультеты':
             self.ui.faculty_window = FacultyWindow()
             self.ui.faculty_window.show()
+    
+    def printHello():
+        pass
 
 
 if __name__ == '__main__':
